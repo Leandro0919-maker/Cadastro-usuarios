@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import api from '../../services/api'
 
 import { Title } from './styles'
@@ -19,15 +20,16 @@ const inputName = useRef()
 const inputAge = useRef()
 const inputEmail = useRef()
 
-async function registerNewUser(){
+const navigate = useNavigate()
 
- const data = await api.post('/usuarios', {
+async function registerNewUser(){
+ await api.post('/usuarios', {
     name: inputName.current.value,
     age: parseInt(inputAge.current.value),
     email: inputEmail.current.value 
   })
   
-  console.log(data)
+  
 }
 
   return (
@@ -67,14 +69,18 @@ async function registerNewUser(){
 
         </div>
 
-        <Button type='button' onClick={registerNewUser}>
+        <Button type='button' onClick={registerNewUser} theme = "primary" >
         Cadastrar Usuario
         </Button>
       </Form>
 
-
+      <Button type='button' onClick={() =>navigate('/lista-de-usuarios')}>
+        Ver Lista de Usuarios
+        </Button>
 
     </Container>
+
+    
 
   )
 }
